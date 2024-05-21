@@ -23,14 +23,14 @@ class ViewController: UIViewController {
     @IBOutlet var calculateButton: UIButton!
     @IBOutlet var randomButton: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setLabels()
         setTextFields()
         setButtons()
-        
     }
+    
 
     @IBAction func resultButtonTapped(_ sender: UIButton) {
         resultButtonClicked()
@@ -114,24 +114,9 @@ class ViewController: UIViewController {
         let height = heightTextField.text ?? "180"
         let weight = weightTextField.text ?? "80"
         
-        var heightOK = true
-        var weightOK = true
-        
-        if let height = Double(height), let weight = Double(weight) {
-            heightWarningLabel.text = " "
-            weightWarningLabel.text = " "
+        if checkValues(height: height, weight: weight) {
             
-            if height < 100 || height > 230 {
-                heightWarningLabel.text = "키가 너무 작거나 큽니다"
-                heightOK = false
-            }
-            
-            if weight < 30 || weight > 200 {
-                weightWarningLabel.text = "몸무게가 너무 작거나 큽니다"
-                weightOK = false
-            }
-            
-            let bmi = calculateBMI(height: height, weight: weight)
+            let bmi = calculateBMI(height: Double(height)!, weight: Double(weight)!)
             let bmiRange = bmiRange(bmi: bmi)
             let alert = UIAlertController(title: "BMI 결과",
                                           message: "키: \(height)cm\n몸무게:\(weight)kg\nBMI 수치: \(bmi)\n\(bmiRange)",
@@ -139,20 +124,9 @@ class ViewController: UIViewController {
             
             let confirm = UIAlertAction(title: "확인", style: .default)
             alert.addAction(confirm)
-            
-            if heightOK && weightOK {
-                present(alert, animated: true)
-            }
-            
-        } else {
-            if Double(height) == nil {
-                heightWarningLabel.text = "정확한 숫자를 입력하세요"
-            }
-            
-            if Double(weight) == nil {
-                weightWarningLabel.text = "정확한 숫자를 입력하세요"
-            }
+            present(alert, animated: true)
         }
+        
     }
     
     func randomButtonClicked() {
@@ -171,6 +145,43 @@ class ViewController: UIViewController {
         
         present(alert, animated: true)
         
+    }
+    
+    func checkValues(height: String, weight: String) -> Bool {
+        var valid = true
+        if Double(height) == nil {
+            heightWarningLabel.text = "정확한 숫자를 입력하세요"
+            valid = false
+        } else {
+            heightWarningLabel.text = " "
+        }
+        
+        if Double(weight) == nil {
+            weightWarningLabel.text = "정확한 숫자를 입력하세요"
+            valid = false
+        } else {
+            weightWarningLabel.text = " "
+        }
+        
+        if let height = Double(height) {
+            if height < 100 || height > 230 {
+                heightWarningLabel.text = "키를 확인하세요"
+                valid = false
+            } else {
+                heightWarningLabel.text = " "
+            }
+        }
+        
+        if let weight = Double(weight) {
+            if weight < 30 || weight > 200 {
+                weightWarningLabel.text = "몸무게를 확인하세요"
+                valid = false
+            } else {
+                weightWarningLabel.text = " "
+            }
+        }
+        
+        return valid
     }
     
 }
