@@ -33,12 +33,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func resultButtonTapped(_ sender: UIButton) {
-        print("Calculate")
         resultButtonClicked()
     }
     
     @IBAction func randomButtonTapped(_ sender: UIButton) {
-        print("Random")
         randomButtonClicked()
     }
     
@@ -53,47 +51,63 @@ class ViewController: UIViewController {
         detailLabel.numberOfLines = 0
         detailLabel.text = "당신의 BMI 지수를\n알려드릴게요."
         
-        heightLabel.text = "키가 어떻게 되시나요?"
-        heightLabel.font = heightLabel.font.withSize(15)
-        heightWarningLabel.text = " "
-        heightWarningLabel.textColor = .red
-        heightWarningLabel.font = heightWarningLabel.font.withSize(15)
-        
-        weightLabel.text = "몸무게는 어떻게 되시나요?"
-        weightLabel.font = weightLabel.font.withSize(15)
-        weightWarningLabel.text = " "
-        weightWarningLabel.textColor = .red
-        weightWarningLabel.font = weightWarningLabel.font.withSize(15)
-        
+        setLabel(label1: heightLabel, label2: heightWarningLabel, text: "키가 어떻게 되시나요?")
+        setLabel(label1: weightLabel, label2: weightWarningLabel, text: "몸무게는 어떻게 되시나요?")
     }
     
     func setTextFields() {
-        heightTextField.textAlignment = .center
-        heightTextField.keyboardType = .decimalPad
-        heightTextField.layer.cornerRadius = 10
-        heightTextField.layer.borderWidth = 1
-        heightTextField.font = .systemFont(ofSize: 25)
-        
-        weightTextField.textAlignment = .center
-        weightTextField.keyboardType = .decimalPad
-        weightTextField.layer.cornerRadius = 10
-        weightTextField.layer.borderWidth = 1
-        weightTextField.font = .systemFont(ofSize: 25)
+        setTextField(heightTextField)
+        setTextField(weightTextField)
     }
     
     func setButtons() {
-        calculateButton.setTitle("결과 확인", for: .normal)
-        calculateButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-        calculateButton.setTitleColor(.white, for: .normal)
-        calculateButton.layer.cornerRadius = 10
-        calculateButton.backgroundColor = .purple
+        setButton(calculateButton, title: "결과 확인", size: 25, color: .purple)
+        setButton(randomButton, title: "랜덤 BMI 확인", size: 20, color: .orange)
+    }
+    
+    func setLabel(label1: UILabel, label2: UILabel, text: String) {
+        label1.text = text
+        label1.font = weightLabel.font.withSize(15)
         
-        randomButton.setTitle("랜덤 BMI 확인", for: .normal)
-        randomButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        randomButton.setTitleColor(.white, for: .normal)
-        randomButton.layer.cornerRadius = 10
-        randomButton.backgroundColor = .orange
-        
+        label2.text = " "
+        label2.textColor = .red
+        label2.font = weightWarningLabel.font.withSize(15)
+    }
+    
+    func setTextField(_ textField: UITextField) {
+        textField.textAlignment = .center
+        textField.keyboardType = .decimalPad
+        textField.layer.cornerRadius = 10
+        textField.layer.borderWidth = 1
+        textField.font = .systemFont(ofSize: 25)
+    }
+    
+    func setButton(_ button: UIButton, title: String, size: CGFloat, color: UIColor) {
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: size)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = color
+    }
+    
+    func calculateBMI(height: Double, weight: Double) -> Double {
+        let result = weight / (height/100 * height/100)
+        return round(result*100)/100
+    }
+    
+    func bmiRange(bmi: Double) -> String {
+        switch bmi {
+        case ..<18.5:
+            return "저체중"
+        case 18.5..<23:
+            return "정상"
+        case 23..<25:
+            return "과체중"
+        case 25...:
+            return "비만"
+        default:
+            return "오류"
+        }
     }
     
     func resultButtonClicked() {
@@ -138,26 +152,6 @@ class ViewController: UIViewController {
             if Double(weight) == nil {
                 weightWarningLabel.text = "정확한 숫자를 입력하세요"
             }
-        }
-    }
-    
-    func calculateBMI(height: Double, weight: Double) -> Double {
-        let result = weight / (height/100 * height/100)
-        return round(result*100)/100
-    }
-    
-    func bmiRange(bmi: Double) -> String {
-        switch bmi {
-        case ..<18.5:
-            return "저체중"
-        case 18.5..<23:
-            return "정상"
-        case 23..<25:
-            return "과체중"
-        case 25...:
-            return "비만"
-        default:
-            return "오류"
         }
     }
     
