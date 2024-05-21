@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var detailLabel: UILabel!
     
+    @IBOutlet var bmiImage: UIImageView!
+    
     @IBOutlet var heightLabel: UILabel!
     @IBOutlet var heightWarningLabel: UILabel!
     @IBOutlet var weightLabel: UILabel!
@@ -21,23 +23,24 @@ class ViewController: UIViewController {
     @IBOutlet var weightTextField: UITextField!
     
     @IBOutlet var calculateButton: UIButton!
-    @IBOutlet var randomButton: UIButton!
     
+    @IBOutlet var randomButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setLabels()
         setTextFields()
         setButtons()
+        bmiImage.image = .bmi
+        bmiImage.contentMode = .scaleAspectFill
     }
     
+    @IBAction func randomTapped(_ sender: UIButton) {
+        randomButtonClicked()
+    }
 
     @IBAction func resultButtonTapped(_ sender: UIButton) {
         resultButtonClicked()
-    }
-    
-    @IBAction func randomButtonTapped(_ sender: UIButton) {
-        randomButtonClicked()
     }
     
     @IBAction func backgroundTapped(_ sender: UITapGestureRecognizer) {
@@ -56,13 +59,17 @@ class ViewController: UIViewController {
     }
     
     func setTextFields() {
-        setTextField(heightTextField)
-        setTextField(weightTextField)
+        setTextField(heightTextField, placeholder: "cm")
+        setTextField(weightTextField, placeholder: "kg")
     }
     
     func setButtons() {
         setButton(calculateButton, title: "결과 확인", size: 25, color: .purple)
-        setButton(randomButton, title: "랜덤 BMI 확인", size: 20, color: .orange)
+        
+        randomButton.setTitle("랜덤으로 BMI 계산하기", for: .normal)
+        randomButton.setTitleColor(.red, for: .normal)
+        randomButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        randomButton.titleLabel?.textAlignment = .right
     }
     
     func setLabel(label1: UILabel, label2: UILabel, text: String) {
@@ -71,11 +78,12 @@ class ViewController: UIViewController {
         
         label2.text = " "
         label2.textColor = .red
-        label2.font = weightWarningLabel.font.withSize(15)
+        label2.font = weightWarningLabel.font.withSize(13)
     }
     
-    func setTextField(_ textField: UITextField) {
+    func setTextField(_ textField: UITextField, placeholder: String) {
         textField.textAlignment = .center
+        textField.placeholder = placeholder
         textField.keyboardType = .decimalPad
         textField.layer.cornerRadius = 10
         textField.layer.borderWidth = 1
