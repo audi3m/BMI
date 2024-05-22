@@ -114,6 +114,24 @@
                                     <constraint firstAttribute="height" constant="210" id="u6C-MY-TjY"/>
                                 </constraints>
                             </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wiN-7m-KVm">
+                                <rect key="frame" x="20" y="229" width="200" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Rmw-hZ-uf3"/>
+                                    <constraint firstAttribute="width" constant="200" id="gLg-Qh-OVC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-as-YJA">
+                                <rect key="frame" x="159" y="676.66666666666663" width="75" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="8M6-Ur-CEX"/>
+                                    <constraint firstAttribute="height" constant="35" id="bCx-ZV-sJP"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -139,10 +157,13 @@
                             <constraint firstItem="PKL-qb-qYm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="WDG-F4-o6t"/>
                             <constraint firstItem="Zbl-Xf-r8f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="XgD-Uk-4aQ"/>
                             <constraint firstItem="Yol-e1-tUv" firstAttribute="top" secondItem="Dn1-Ov-XsL" secondAttribute="bottom" id="Zyj-gt-9ed"/>
+                            <constraint firstItem="wiN-7m-KVm" firstAttribute="top" secondItem="Y2x-TP-kWO" secondAttribute="bottom" constant="15" id="a8o-lX-gGZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AEo-VG-nKO" secondAttribute="trailing" constant="30" id="bUe-NY-s3p"/>
+                            <constraint firstItem="wiN-7m-KVm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bvo-fX-8Lt"/>
                             <constraint firstItem="gLi-Rt-JpY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="dQM-gg-xdK"/>
                             <constraint firstItem="hcR-Lm-TJI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="dr7-fe-2vP"/>
                             <constraint firstItem="SYJ-7L-otR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="duA-1k-aRb"/>
+                            <constraint firstItem="5Lq-as-YJA" firstAttribute="top" secondItem="PKL-qb-qYm" secondAttribute="bottom" constant="40" id="dvq-IV-tLj"/>
                             <constraint firstItem="Yol-e1-tUv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eqt-lH-auW"/>
                             <constraint firstItem="SYJ-7L-otR" firstAttribute="top" secondItem="Yol-e1-tUv" secondAttribute="bottom" constant="5" id="hm1-Tf-Ibr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="inD-5i-INF" secondAttribute="trailing" constant="30" id="jGm-GA-D6L"/>
@@ -155,6 +176,7 @@
                             <constraint firstItem="inD-5i-INF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="uxu-Bb-T15"/>
                             <constraint firstItem="Y2x-TP-kWO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xHN-Wd-O70"/>
                             <constraint firstItem="inD-5i-INF" firstAttribute="top" secondItem="MIh-MP-dbs" secondAttribute="bottom" constant="5" id="zoY-p4-2Ae"/>
+                            <constraint firstItem="5Lq-as-YJA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ztG-YO-07I"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="4bT-T5-g7o" appends="YES" id="JqJ-nt-w0D"/>
@@ -167,7 +189,9 @@
                         <outlet property="heightLabel" destination="Zbl-Xf-r8f" id="elX-mB-cKg"/>
                         <outlet property="heightTextField" destination="0Kg-1c-aZE" id="jHF-ZL-1j8"/>
                         <outlet property="heightWarningLabel" destination="SYJ-7L-otR" id="pZu-sT-Gnb"/>
+                        <outlet property="nicknameField" destination="wiN-7m-KVm" id="LZd-QK-hmG"/>
                         <outlet property="randomButton" destination="AEo-VG-nKO" id="IYb-Hi-4QH"/>
+                        <outlet property="resetButton" destination="5Lq-as-YJA" id="Ahd-zn-pai"/>
                         <outlet property="titleLabel" destination="gLi-Rt-JpY" id="NXr-Yb-X7H"/>
                         <outlet property="weightLabel" destination="hcR-Lm-TJI" id="B7v-Ix-i5v"/>
                         <outlet property="weightTextField" destination="21g-Cs-MjF" id="t4g-oS-Qp3"/>

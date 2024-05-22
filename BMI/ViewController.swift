@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var detailLabel: UILabel!
     
+    @IBOutlet var nicknameField: UITextField!
+    
     @IBOutlet var bmiImage: UIImageView!
     
     @IBOutlet var heightLabel: UILabel!
@@ -26,15 +28,21 @@ class ViewController: UIViewController {
     
     @IBOutlet var randomButton: UIButton!
     
+    @IBOutlet var resetButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setLabels()
+        setNicknameField()
         setTextFields()
         setButtons()
         bmiImage.image = .bmi
         bmiImage.contentMode = .scaleAspectFill
         
         fetchHeightAndWeight()
+        
+        resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
     }
     
     @IBAction func randomTapped(_ sender: UIButton) {
@@ -47,6 +55,13 @@ class ViewController: UIViewController {
     
     @IBAction func backgroundTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    func setNicknameField() {
+        nicknameField.placeholder = "닉네임을 입력하세요"
+        nicknameField.backgroundColor = .systemGray6
+        nicknameField.layer.cornerRadius = 5
+        nicknameField.layer.borderWidth = 1
     }
     
     func setLabels() {
@@ -72,6 +87,8 @@ class ViewController: UIViewController {
         randomButton.setTitleColor(.red, for: .normal)
         randomButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
         randomButton.titleLabel?.textAlignment = .right
+        
+        resetButton.setTitle("Reset", for: .normal)
     }
     
     func setLabel(label1: UILabel, label2: UILabel, text: String) {
@@ -123,6 +140,7 @@ class ViewController: UIViewController {
     func resultButtonClicked() {
         let height = heightTextField.text ?? "180"
         let weight = weightTextField.text ?? "80"
+        let nickname = nicknameField.text ?? "UNKNOWN"
         
         if checkValues(height: height, weight: weight) {
             
@@ -136,7 +154,7 @@ class ViewController: UIViewController {
             alert.addAction(confirm)
             present(alert, animated: true)
             
-            saveHeightAndWeight(height: height, weight: weight)
+            saveValues(nickname: nickname, height: height, weight: weight)
         }
         
     }
@@ -196,17 +214,29 @@ class ViewController: UIViewController {
         return valid
     }
     
-    func saveHeightAndWeight(height: String, weight: String) {
+    func saveValues(nickname: String, height: String, weight: String) {
+        UserDefaults.standard.set(nickname, forKey: "nickname")
         UserDefaults.standard.set(height, forKey: "height")
         UserDefaults.standard.set(weight, forKey: "weight")
     }
     
     func fetchHeightAndWeight() {
+        let nickname = UserDefaults.standard.string(forKey: "nickname")
         let height = UserDefaults.standard.string(forKey: "height")
         let weight = UserDefaults.standard.string(forKey: "weight")
+        nicknameField.text = nickname
         heightTextField.text = height
         weightTextField.text = weight
     }
     
+    @objc func resetButtonTapped() {
+        UserDefaults.standard.set("", forKey: "nickname")
+        UserDefaults.standard.set("", forKey: "height")
+        UserDefaults.standard.set("", forKey: "weight")
+        
+        nicknameField.text = ""
+        heightTextField.text = ""
+        weightTextField.text = ""
+    }
 }
 
