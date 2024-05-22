@@ -33,12 +33,14 @@ class ViewController: UIViewController {
         setButtons()
         bmiImage.image = .bmi
         bmiImage.contentMode = .scaleAspectFill
+        
+        fetchHeightAndWeight()
     }
     
     @IBAction func randomTapped(_ sender: UIButton) {
         randomButtonClicked()
     }
-
+    
     @IBAction func resultButtonTapped(_ sender: UIButton) {
         resultButtonClicked()
     }
@@ -133,6 +135,8 @@ class ViewController: UIViewController {
             let confirm = UIAlertAction(title: "확인", style: .default)
             alert.addAction(confirm)
             present(alert, animated: true)
+            
+            saveHeightAndWeight(height: height, weight: weight)
         }
         
     }
@@ -143,7 +147,7 @@ class ViewController: UIViewController {
         
         let bmi = calculateBMI(height: height, weight: weight)
         let bmiRange = bmiRange(bmi: bmi)
-        let alert = UIAlertController(title: "BMI 결과", 
+        let alert = UIAlertController(title: "BMI 결과",
                                       message: "키: \(height)cm\n몸무게: \(weight)kg\nBMI 수치: \(bmi)\n\(bmiRange) 입니다.",
                                       preferredStyle: .alert)
         
@@ -190,6 +194,18 @@ class ViewController: UIViewController {
         }
         
         return valid
+    }
+    
+    func saveHeightAndWeight(height: String, weight: String) {
+        UserDefaults.standard.set(height, forKey: "height")
+        UserDefaults.standard.set(weight, forKey: "weight")
+    }
+    
+    func fetchHeightAndWeight() {
+        let height = UserDefaults.standard.string(forKey: "height")
+        let weight = UserDefaults.standard.string(forKey: "weight")
+        heightTextField.text = height
+        weightTextField.text = weight
     }
     
 }
